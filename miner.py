@@ -123,10 +123,11 @@ class Miner:
 
     def make_table(self):
         # self.s = '<onlyinclude><div class="mw-customtoggle-helmets wikia-menu-button">Show/Hide {}</div>\n'.format(self.item_type)
-        
-        self.s = 'These tables are generated from game data. Do not edit this page. the Temp:* pages are intended' \
+
+        self.s += '<!-- Github link for the python script: https://github.com/rainbow12/Bannerlord-Miner -->\n'
+        self.s += 'These tables are generated from game data. Do not edit this page. the Temp:* pages are intended' \
                  ' as temporary resource that are continually updated. Once the game is finalized, these can be deleted ' \
-                 'and replaced with non-ugly ones :P\n'
+                 'and replaced with non-ugly ones :P (Game Version: e1.4.3)\n'
         #self.s += '<div class="mw-collapsible mw-collapsed">\n'
         self.s += '<div class="mw-collapsible">\n'
         self.s += '=={}==\n'.format(normalize_name(self.item_type))
@@ -221,7 +222,6 @@ attribute_getters_cape = [
     ('Item', [lambda item: remove_hash(item['@name'])]),
     ('Armor Arm', [lambda item: item['ItemComponent'][0]['Armor'][0].get('@arm_armor', "")]),
     ('Armor Body', [lambda item: item['ItemComponent'][0]['Armor'][0].get('@body_armor', "")]),
-    ('Armor Leg', [lambda item: item['ItemComponent'][0]['Armor'][0].get('@leg_armor', "")]),
     ('Material', [lambda item: item['ItemComponent'][0]['Armor'][0]['@material_type']]),
     ('Weight', [lambda item: str(item['@weight'])]),
     ('Modifiers', [lambda item: '[[#'+item['ItemComponent'][0]['Armor'][0]['@modifier_group']+']]']),
@@ -249,11 +249,9 @@ attribute_getters_arm = [
 attribute_getters_harness = [
     ('Item', [lambda item: remove_hash(item['@name'])]),
     ('Armor Body', [lambda item: item['ItemComponent'][0]['Armor'][0].get('@body_armor', "")]),
-    ('Maneuver Bonus', [lambda item: item['ItemComponent'][0]['Armor'][0].get('@maneuver_bonus', "")]),
     ('Material', [lambda item: item['ItemComponent'][0]['Armor'][0]['@material_type']]),
     ('Weight', [lambda item: str(item['@weight'])]),
     ('Modifiers', [lambda item: '[[#'+item['ItemComponent'][0]['Armor'][0]['@modifier_group']+']]']),
-    ('Culture', [lambda item: get_culture(item.get('@culture', ""))]),
 ]
 
 miners = [Miner(items, good_mod_groups, attribute_getters_head, 'HeadArmor'),
